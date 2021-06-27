@@ -18,8 +18,6 @@ const corsOptions = {
 app.use(express.text());
 app.use(cors(corsOptions));
 
-// get every 24 hours an updated csv file of covid data 19 from data.gouv.fr
-
 const uri = `mongodb+srv://adrien:${process.env.DB_USER_PASS}@cluster0.cxrmv.mongodb.net/data-gouv?retryWrites=true&w=majority`;
 const DATABASE = "data-gouv";
 
@@ -27,6 +25,7 @@ MongoClient.connect(
   uri,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err, client) => {
+    // get every 24 hours an updated csv file of covid data 19 from data.gouv.fr
     scheduleDataCovidCSV();
     if (err) return console.error(err);
     console.log("Connected successfully to server");
