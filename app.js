@@ -25,10 +25,10 @@ MongoClient.connect(
   uri,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err, client) => {
+    if (err) return console.error(err);
     // get every 24 hours an updated csv file of covid data 19 from data.gouv.fr
     scheduleDataCovidCSV();
-    if (err) return console.error(err);
-    console.log("Connected successfully to server");
+
     const db = client.db(DATABASE);
 
     app.post("/", function (req, res) {

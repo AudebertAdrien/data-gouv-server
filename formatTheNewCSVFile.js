@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = async function () {
-  console.log("formatTheNewCSVFile");
   const textPath = path.resolve(__dirname, "docs", "output.csv");
 
   return new Promise(function (resolve, reject) {
