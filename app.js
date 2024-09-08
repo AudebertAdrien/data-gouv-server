@@ -1,16 +1,16 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const { MongoClient } = require("mongodb");
+const cors = require('cors');
+const { MongoClient } = require('mongodb');
 
-const newArrayOfDepartmentsAndIncidences = require("./newArrayOfDepartmentsAndIncidences");
-const scheduleDataCovidCSV = require("./scheduleDataCovidCSV");
+const newArrayOfDepartmentsAndIncidences = require('./newArrayOfDepartmentsAndIncidences');
+const scheduleDataCovidCSV = require('./scheduleDataCovidCSV');
 
 const corsOptions = {
   origin: [
-    "https://data-gouv-client.herokuapp.com",
-    "http://localhost:8080",
-    "http://localhost:5000",
+    'https://data-gouv-client.herokuapp.com',
+    'http://localhost:8080',
+    'http://localhost:5000',
   ],
   optionsSuccessStatus: 200,
 };
@@ -19,7 +19,7 @@ app.use(express.text());
 app.use(cors(corsOptions));
 
 const uri = `mongodb+srv://adrien:${process.env.DB_USER_PASS}@cluster0.cxrmv.mongodb.net/data-gouv?retryWrites=true&w=majority`;
-const DATABASE = "data-gouv";
+const DATABASE = 'data-gouv';
 
 MongoClient.connect(
   uri,
@@ -31,9 +31,9 @@ MongoClient.connect(
 
     const db = client.db(DATABASE);
 
-    app.post("/", function (req, res) {
+    app.post('/', function (req, res) {
       try {
-        db.collection("incidence")
+        db.collection('incidence')
           .find({ jour: { $eq: req.body } })
           .sort({ dep: 1, _id: 1 })
           .toArray()
